@@ -64,6 +64,6 @@ dependencies {
 
     //Retail SDK
     implementation "com.ticketmaster.retail:purchase:1.0.6"
-    implementation "com.ticketmaster.retail:prepurchase:1.0.4"
+    implementation "com.ticketmaster.retail:prepurchase:1.0.5"
     implementation "com.ticketmaster.retail:discoveryapi:1.0.2"
 }

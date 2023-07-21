@@ -99,7 +99,7 @@ class PrePurchaseActivity : AppCompatActivity() {
         val purchaseVersion = resources.getString(R.string.purchase_api, "v1.0.6")
         purchaseApiTextView.text = purchaseVersion
 
-        val prePurchaseVersion = resources.getString(R.string.prepurchase_api, "v1.0.3")
+        val prePurchaseVersion = resources.getString(R.string.prepurchase_api, "v1.0.5")
         prePurchaseApiTextView.text = prePurchaseVersion
 
         val ticketsVersion = resources.getString(R.string.tickets_api, "v3.0.2")
@@ -269,7 +269,7 @@ class PrePurchaseActivity : AppCompatActivity() {
 
         override fun onDidRequestCurrentLocation(
             globalMarketDomain: TMMarketDomain?,
-            completion: ((CoordinatesWithMarketDomain) -> Unit)?
+            completion: (CoordinatesWithMarketDomain?) -> Unit
         ) {
             // MUST implement if requesting location from users' as well as
             // requesting they grant your application permission to their location
