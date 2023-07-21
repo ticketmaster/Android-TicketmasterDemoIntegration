@@ -19,8 +19,10 @@ The first flow you'll encounter after entering in your config items will be `Pre
 When you select a ticket, `openEventDetailsPage` of the PrePurchase navigation listener is where you'll then head to the `Purchase` section. Purchase consists of ticket selections
 and checkout.
 
-PrePurchase  ->               if (logged in)                  -> Purchase
-             ->  if (not logged in) -> Tickets Authentication -> Purchase
+Scenarios:
+
+1. PrePurchase  ->               if (logged in)                  -> Purchase
+2. PrePurchase  ->  if (not logged in) -> Tickets Authentication -> Purchase
 
 ## Demo App Screenshots
 
