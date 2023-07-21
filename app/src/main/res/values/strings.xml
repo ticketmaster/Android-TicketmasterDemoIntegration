@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">TicketMasterRetailAndTicketsDemo</string>
+    <string name="api_developer_key">Developer API Key:</string>
+    <string name="deployment_region">TMX Deployment Region:</string>
+    <string name="market_domain">Retail Market Domain:</string>
+    <string name="retail_frameworks">Retail Frameworks</string>
+    <string name="tickets_framework">Tickets Frameworks</string>
+    <string name="authentication">Authentication Frameworks</string>
+    <string name="event_id">Event ID:</string>
+
+    <string name="enter_api_key">Enter API Key</string>
+    <string name="enter_event_id">Enter Event Id</string>
+    <string name="region_select_hint">Select a TMX Deployment Region</string>
+    <string name="market_select_hint">Select a Retail Market Domain</string>
+
+    <string name="error_dialog">Something went wrong!</string>
+    <string name="error_message">There was missing properties.</string>
+    <string name="retry">Retry</string>
+    <string name="cancel">Cancel</string>
 </resources>
