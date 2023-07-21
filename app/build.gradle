@@ -18,7 +18,6 @@ android {
         Properties properties = new Properties()
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-        // Tickets SDK Setup
         def consumerKey = properties.getProperty('config.consumer_key')
         def teamName = properties.getProperty('config.team_name')
         def brandingColor = properties.getProperty('config.branding_color')
@@ -71,7 +70,7 @@ dependencies {
     implementation 'com.ticketmaster.accounts:authentication:3.0.2'
 
     //Retail SDK
-    implementation ("com.ticketmaster.retail:purchase:1.0.6")
-    implementation ("com.ticketmaster.retail:prepurchase:1.0.4")
+    implementation "com.ticketmaster.retail:purchase:1.0.6"
+    implementation "com.ticketmaster.retail:prepurchase:1.0.4"
     implementation "com.ticketmaster.retail:discoveryapi:1.0.2"
 }

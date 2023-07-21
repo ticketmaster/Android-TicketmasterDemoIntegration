@@ -17,4 +17,10 @@
     <string name="error_message">There was missing properties.</string>
     <string name="retry">Retry</string>
     <string name="cancel">Cancel</string>
+
+    <string name="login_status">Current User: %s</string>
+    <string name="discovery_api">DiscoveryAPI: %s</string>
+    <string name="prepurchase_api">PrePurchaseAPI: %s</string>
+    <string name="purchase_api">PurchaseAPI: %s</string>
+    <string name="tickets_api">TicketsAPI: %s</string>
 </resources>
