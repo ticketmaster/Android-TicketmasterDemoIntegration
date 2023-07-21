@@ -29,4 +29,4 @@ Scenarios:
 
 ## Demo App Screenshots
 
-<img src="screenshots/sample_integration_app_1.jpg" alt="Getting Started" /> <img src="screenshots/sample_integration_app_2.jpg" alt="Login" /> <img src="screenshots/sample_integration_app_4.jpg" alt="Tickets Listing Page" /> 
+<img src="Screenshot_20230721_091435.png" width="200" height="400" /> <img src="Screenshot_20230721_091548.png" width="200" height="400" /> <img src="Screenshot_20230721_091605.png" width="200" height="400" /> <img src="Screenshot_20230721_091626.png" width="200" height="400" /> 
