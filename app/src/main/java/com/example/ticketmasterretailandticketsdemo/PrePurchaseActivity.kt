@@ -17,7 +17,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.ticketmasterretailandticketsdemo.utils.hideKeyboard
 import com.google.android.material.textfield.TextInputEditText
-import com.ticketmaster.authenticationsdk.AuthSource
 import com.ticketmaster.discoveryapi.enums.TMMarketDomain
 import com.ticketmaster.discoveryapi.models.DiscoveryAbstractEntity
 import com.ticketmaster.discoveryapi.models.DiscoveryEvent
@@ -29,8 +28,6 @@ import com.ticketmaster.prepurchase.data.Location
 import com.ticketmaster.prepurchase.listener.TMPrePurchaseNavigationListener
 import com.ticketmaster.purchase.TMPurchase
 import com.ticketmaster.purchase.TMPurchaseWebsiteConfiguration
-import com.ticketmaster.tickets.ticketssdk.TicketsSDKSingleton
-import kotlinx.coroutines.runBlocking
 import kotlinx.parcelize.Parcelize
 
 val regions = listOf("US", "UK")
@@ -41,7 +38,7 @@ data class ExtraInfo(
     val region: String
 ) : Parcelable
 
-class MainActivity : AppCompatActivity() {
+class PrePurchaseActivity : AppCompatActivity() {
 
     private val mainActivityContainer: ConstraintLayout by lazy {
         findViewById(R.id.main_activity_container)
@@ -128,7 +125,7 @@ class MainActivity : AppCompatActivity() {
             val tmPrePurchase = TMPrePurchase(
                 discoveryAPIKey = apiKey,
                 brandColor = ContextCompat.getColor(
-                    this@MainActivity,
+                    this@PrePurchaseActivity,
                     R.color.black
                 )
             )
@@ -228,7 +225,7 @@ class MainActivity : AppCompatActivity() {
         private val context: Context,
         private val apiKey: String,
         private val region: String,
-        private val completion: () -> Unit
+        private val closeScreen: () -> Unit
     ) :
         TMPrePurchaseNavigationListener {
         // openEventDetailsPage is the bridge between PrePurchase and Purchase.
@@ -267,25 +264,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onPrePurchaseClosed() {
-            completion.invoke()
+            closeScreen.invoke()
         }
 
         override fun onDidRequestCurrentLocation(
             globalMarketDomain: TMMarketDomain?,
             completion: ((CoordinatesWithMarketDomain) -> Unit)?
         ) {
-            val coordinates = CoordinatesWithMarketDomain(
-                latitude = 37.4139,
-                longitude = -122.0851,
-                marketDomain = globalMarketDomain
-            )
-            completion?.invoke(coordinates)
+            // MUST implement if requesting location from users' as well as
+            // requesting they grant your application permission to their location
         }
 
         override fun onDidUpdateCurrentLocation(
             globalMarketDomain: TMMarketDomain?,
             location: Location
-        ) {
-        }
+        ) {}
     }
 }
