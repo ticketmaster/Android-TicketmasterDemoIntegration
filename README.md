@@ -15,9 +15,12 @@ This is an example integration of the Ticketmaster RetailSDKs and TicketsSDKs.
 
 
 ## Flow
-The first flow you'll encounter after entering in your config items will be `PrePurchase`. `PrePurchase` is where you can search and discover tickets based on what you desire.
-When you select a ticket, `openEventDetailsPage` of the PrePurchase navigation listener is where you'll then head to the `Purchase` section. Purchase consists of ticket selections
-and checkout.
+The first flow you'll encounter after entering in your config items will be `PrePurchase`. 
+
+`PrePurchase` is where you can search and discover tickets based on what you desire.
+When you select a ticket, `openEventDetailsPage` of the PrePurchase navigation listener `TMPrePurchaseNavigationListener` is invoked and you'll have access to the necessary data to head to the `Purchase` section. 
+
+Purchase consists of ticket selections and checkout.
 
 Scenarios:
 
