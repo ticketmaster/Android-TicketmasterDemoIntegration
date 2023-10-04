@@ -49,6 +49,7 @@
                 <data android:scheme="psdkqaschemecommon" />
                 <data android:scheme="psdkpreprodschemecommon" />
                 <data android:scheme="psdkschemedcunited" />
+                <data android:scheme="psdkschemebills" />
             </intent-filter>
         </activity>
     </application>
