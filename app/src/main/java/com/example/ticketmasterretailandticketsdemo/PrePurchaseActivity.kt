@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.ticketmasterretailandticketsdemo.utils.hideKeyboard
+import com.example.ticketmasterretailandticketsdemo.extension.hideKeyboard
 import com.google.android.material.textfield.TextInputEditText
 import com.ticketmaster.discoveryapi.enums.TMMarketDomain
 import com.ticketmaster.discoveryapi.models.DiscoveryAbstractEntity

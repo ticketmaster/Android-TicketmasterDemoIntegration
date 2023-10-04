@@ -2,11 +2,10 @@ package com.example.ticketmasterretailandticketsdemo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import com.ticketmaster.authenticationsdk.TMAuthentication
+import com.example.ticketmasterretailandticketsdemo.extension.parcelable
+import com.ticketmaster.authenticationsdk.TMXDeploymentEnvironment
 import com.ticketmaster.authenticationsdk.TMXDeploymentRegion
-import com.ticketmaster.discoveryapi.models.DiscoveryAbstractEntity
-import com.ticketmaster.discoveryapi.utils.parcelable
+import com.ticketmaster.foundation.entity.TMAuthenticationParams
 import com.ticketmaster.purchase.TMPurchase
 import com.ticketmaster.purchase.TMPurchaseFragmentFactory
 import com.ticketmaster.purchase.TMPurchaseWebsiteConfiguration
@@ -36,31 +35,27 @@ class PurchaseActivity : AppCompatActivity() {
                 intent.extras?.parcelable(ExtraInfo::class.java.name)
                     ?: throw TmInvalidConfigurationException()
 
-            lifecycleScope.launch {
-                val factory = TMPurchaseFragmentFactory(
-                    tmPurchaseNavigationListener = PurchaseNavigationListener { finish() }
-                ).apply {
-                    supportFragmentManager.fragmentFactory = this
-                }
+            val factory = TMPurchaseFragmentFactory(
+                tmPurchaseNavigationListener = PurchaseNavigationListener { finish() }
+            ).apply {
+                supportFragmentManager.fragmentFactory = this
+            }
 
-                val tmAuthentication = setupTMAuthentication(
+            val bundle = tmPurchase.getPurchaseBundle(
+                tmPurchaseWebsiteConfiguration,
+                setupTMAuthParams(
                     tmPurchase,
                     getRegion(extraInfo.region)
                 )
+            )
 
-                val bundle = tmPurchase.getPurchaseBundle(
-                    tmPurchaseWebsiteConfiguration,
-                    tmAuthentication
-                )
-
-                val fragment = factory.instantiatePurchase(classLoader).apply {
-                    arguments = bundle
-                }
-
-                supportFragmentManager.beginTransaction()
-                    .add(android.R.id.content, fragment)
-                    .commit()
+            val fragment = factory.instantiatePurchase(classLoader).apply {
+                arguments = bundle
             }
+
+            supportFragmentManager.beginTransaction()
+                .add(android.R.id.content, fragment)
+                .commit()
         }
     }
 
@@ -71,25 +66,22 @@ class PurchaseActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun setupTMAuthentication(
+    private fun setupTMAuthParams(
         tmPurchase: TMPurchase,
         region: TMXDeploymentRegion
-    ): TMAuthentication {
-
-        return TMAuthentication
-            .Builder()
-            .apiKey(tmPurchase.apiKey)
-            .clientName("Ticketmaster Demo")
-            .region(region)
-            .build(this)
-    }
+    ): TMAuthenticationParams = TMAuthenticationParams(
+        apiKey = tmPurchase.apiKey,
+        clientName = "Ticketmaster Demo",
+        environment = TMXDeploymentEnvironment.Production,
+        region = region,
+        quickLogin = false,
+        autoQuickLogin = true
+    )
 }
 
 class PurchaseNavigationListener(private val closeScreen: () -> Unit) :
     TMPurchaseNavigationListener {
     override fun errorOnEventDetailsPage(error: Exception) {}
-
-    override fun onActionItemClicked(attraction: DiscoveryAbstractEntity?) {}
 
     override fun onPurchaseClosed() {
         closeScreen.invoke()
