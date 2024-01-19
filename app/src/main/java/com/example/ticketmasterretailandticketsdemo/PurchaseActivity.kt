@@ -4,9 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.ticketmaster.authenticationsdk.TMAuthentication
+import com.ticketmaster.authenticationsdk.TMXDeploymentEnvironment
 import com.ticketmaster.authenticationsdk.TMXDeploymentRegion
 import com.ticketmaster.discoveryapi.models.DiscoveryAbstractEntity
-import com.ticketmaster.discoveryapi.utils.parcelable
+import com.ticketmaster.foundation.entity.TMAuthenticationParams
 import com.ticketmaster.purchase.TMPurchase
 import com.ticketmaster.purchase.TMPurchaseFragmentFactory
 import com.ticketmaster.purchase.TMPurchaseWebsiteConfiguration
@@ -23,17 +24,17 @@ class PurchaseActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
 
             val tmPurchase: TMPurchase =
-                intent.extras?.parcelable(TMPurchase::class.java.name)
+                intent.extras?.getParcelable(TMPurchase::class.java.name)
                     ?: throw TmInvalidConfigurationException()
 
             val tmPurchaseWebsiteConfiguration: TMPurchaseWebsiteConfiguration =
-                intent.extras?.parcelable(TMPurchaseWebsiteConfiguration::class.java.name)
+                intent.extras?.getParcelable(TMPurchaseWebsiteConfiguration::class.java.name)
                     ?: throw TmInvalidConfigurationException()
 
             // ExtraInfo exists to pass in data that TicketsSDK might need from RetailSDK, such
             // as the deployment region
             val extraInfo: ExtraInfo =
-                intent.extras?.parcelable(ExtraInfo::class.java.name)
+                intent.extras?.getParcelable(ExtraInfo::class.java.name)
                     ?: throw TmInvalidConfigurationException()
 
             lifecycleScope.launch {
@@ -48,9 +49,15 @@ class PurchaseActivity : AppCompatActivity() {
                     getRegion(extraInfo.region)
                 )
 
+                val tmAuthenticationParam = TMAuthenticationParams(
+                    apiKey = tmPurchase.apiKey,
+                    clientName = "Ticketmaster Demo",
+                    region = getRegion(extraInfo.region)
+                )
+
                 val bundle = tmPurchase.getPurchaseBundle(
                     tmPurchaseWebsiteConfiguration,
-                    tmAuthentication
+                    tmAuthenticationParam
                 )
 
                 val fragment = factory.instantiatePurchase(classLoader).apply {
@@ -88,8 +95,6 @@ class PurchaseActivity : AppCompatActivity() {
 class PurchaseNavigationListener(private val closeScreen: () -> Unit) :
     TMPurchaseNavigationListener {
     override fun errorOnEventDetailsPage(error: Exception) {}
-
-    override fun onActionItemClicked(attraction: DiscoveryAbstractEntity?) {}
 
     override fun onPurchaseClosed() {
         closeScreen.invoke()
