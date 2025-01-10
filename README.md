@@ -18,7 +18,7 @@ This is an example integration of the Ticketmaster RetailSDKs and TicketsSDKs.
 
 The RetailSDK makes use of fragment factories whereby you supply the necessary configuration keys and listeners of your choice and in return a fragment that you can display is returned.
 
-# PrePurchase
+### PrePurchase
 
 The first step is the `PrePurchase` flow. `PrePurchase` is where you can search and discover tickets based on what you desire. There are a variety of listeners that can be supplied to `TMPrePurchaseFragmentFactory`
 to manage user interaction and show artist or venue details. One important listener is `TMPrePurchaseNavigationListener`.
@@ -93,7 +93,7 @@ val fragment = tmPurchaseFragmentFactory.instantiatePrePurchase(classLoader).app
 ```
 
 
-# Purchase
+### Purchase
 
 `Purchase` consists of ticket selections and checkout. When a user has selected on an event that is associated with an artist or venue, they are then taken to an event details page where they can select their seats, browse the different ticket prices and proceeding to buy tickets.
 
@@ -149,7 +149,7 @@ val fragment = factory.instantiatePurchase(classLoader).apply {
 ```
 
 
-## Scenarios:
+##$ Scenarios:
 
 1. PrePurchase  ->               if (logged in)                  -> Purchase
 2. PrePurchase  ->  if (not logged in) -> Tickets Authentication -> Purchase
