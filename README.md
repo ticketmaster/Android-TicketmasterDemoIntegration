@@ -149,7 +149,7 @@ val fragment = factory.instantiatePurchase(classLoader).apply {
 ```
 
 
-##$ Scenarios:
+### Scenarios:
 
 1. PrePurchase  ->               if (logged in)                  -> Purchase
 2. PrePurchase  ->  if (not logged in) -> Tickets Authentication -> Purchase
