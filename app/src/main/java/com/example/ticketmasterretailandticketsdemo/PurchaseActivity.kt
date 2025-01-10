@@ -3,7 +3,6 @@ package com.example.ticketmasterretailandticketsdemo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.ticketmasterretailandticketsdemo.utils.parcelable
 import com.ticketmaster.authenticationsdk.TMXDeploymentEnvironment
 import com.ticketmaster.authenticationsdk.TMXDeploymentRegion
 import com.ticketmaster.discoveryapi.enums.TMMarketDomain
@@ -39,11 +38,11 @@ class PurchaseActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
 
             val tmPurchase: TMPurchase =
-                intent.extras?.parcelable(TMPurchase::class.java.name)
+                intent.extras?.getParcelable(TMPurchase::class.java.name)
                     ?: throw TmInvalidConfigurationException()
 
             val tmPurchaseWebsiteConfiguration: TMPurchaseWebsiteConfiguration =
-                intent.extras?.parcelable(TMPurchaseWebsiteConfiguration::class.java.name)
+                intent.extras?.getParcelable(TMPurchaseWebsiteConfiguration::class.java.name)
                     ?: throw TmInvalidConfigurationException()
 
             lifecycleScope.launch {
@@ -112,7 +111,6 @@ class PurchaseNavigationListener(private val closeScreen: () -> Unit) :
      * @param error The exception that occurred while loading the event details page
      */
     override fun errorOnEventDetailsPage(error: Exception) {}
-
 
     /**
      * This method will be called when the user has completed or aborted purchase
